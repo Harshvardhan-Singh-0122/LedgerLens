@@ -32,29 +32,40 @@ const userSchema = new mangoose.Schema(
         emailVerificationToken: {
             type: String
         },
+
         emailVerificationExpires: {
             type: Date
         },
 
+        refreshToken: {
+            type: String,
+            default: null,
+        },
+
+        refreshTokenExpires: {
+            type: Date,
+            default: null,
+        },
+        
         authProvider: {
             type: String,
             enum: ["local", "google"],
             default: "local",
         },
 
-            accountStatus: {
+        accountStatus: {
             type: String,
             enum: ["active", "suspended", "deleted"],
             default: "active",
         },
+
     },
         {
             timestamps: true
         }
 );
 
-userSchema.index({email:1});
 
-const user = mangoose.model("User", userSchema);
+const User = mangoose.model("User", userSchema);
 
-export default user;
+export default User;
