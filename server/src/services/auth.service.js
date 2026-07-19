@@ -128,7 +128,7 @@ export const verifyEmailService = async (token) => {
 
     user.isEmailVerified = true;
 
-    user.emailVerificationToken = null;
+    // user.emailVerificationToken = null;
     user.emailVerificationExpires = null;
 
 

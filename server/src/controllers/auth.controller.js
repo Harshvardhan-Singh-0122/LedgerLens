@@ -24,7 +24,7 @@ export const verifyEmail = async ( req, res ) => {
  
     try{
 
-        const { token } = req.body;
+        const { token } = req.query;
 
         const response = await verifyEmailService(token);
 
