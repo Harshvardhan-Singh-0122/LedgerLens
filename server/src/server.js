@@ -5,7 +5,11 @@ import express from 'express';
 import connectDB from './config/db.js';
 import cookieParser from "cookie-parser";
 
+
+//-----------Routes importsss----------------
 import authRoutes from './routes/auth.routes.js';
+import transactionRoutes from "./routes/transaction.routes.js";
+import dashboardRoutes from "./routes/dashboard.routes.js";
 
 const app = express();
 
@@ -19,11 +23,15 @@ app.use(
 );
 
 app.use(express.json({
-    limit: "5mb",
+  limit: "5mb",
 }));
 app.use(cookieParser());
 
+
+//-----------Routes----------------
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/transactions", transactionRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 
 app.get('/', (req,res) =>{
     res.send('LedgerLens API is running...');
