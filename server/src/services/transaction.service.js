@@ -9,7 +9,7 @@ export const createTransaction = async (userId, transactionData) => {
 
 export const getAllTransactions = async (userId) => {
     return await Transaction.find({ userId })
-        .sort({ transactionDate: -1 });
+        .sort({ transactionDate: -1 });  //  (-1) : newest first then oldest
 };
 
 export const getTransactionById = async (userId, transactionId) => {
@@ -31,8 +31,8 @@ export const updateTransaction = async (
         },
         updateData,
         {
-            new: true,
-            runValidators: true,
+            new: true,   // ---------it returns the modified or updated document rather than the old.--
+            runValidators: true,   //--------Mongoose does not run schema validators during updates.----
         }
     );
 };

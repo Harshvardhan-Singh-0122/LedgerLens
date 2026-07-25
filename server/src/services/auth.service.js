@@ -96,6 +96,7 @@ export const registerUser = async (userData) => {
     };
 };
 
+
 export const verifyEmailService = async (token) => {
 
     const hashedToken = crypto
@@ -113,7 +114,7 @@ export const verifyEmailService = async (token) => {
         throw new Error("Invalid Verification token..");
     }
 
-//----------------------THIS PREVENTS IS EMAIL IS ALREADY VERIFIED
+//----------------------THIS PREVENTS, EMAIL IS ALREADY VERIFIED
     if(user.isEmailVerified){
         throw new Error("Email is already verified");
     }
@@ -222,7 +223,7 @@ export const getProfileService = async (userId) => {
     const user = await User.findById(userId)
         .select(
             "-password -refreshToken -refreshTokenExpires -emailVerificationToken -emailVerificationExpires"
-        );
+        );  // ----------- (-xyz) means we are excluding these fields from the User collection, so that they are not sent back to the client.
 
     if (!user) {
         throw new Error("User not found.");
@@ -288,7 +289,7 @@ export const refreshTokenService = async (refreshToken) => {
 
     const {
         accessToken,
-        refreshToken: newRefreshToken,
+        refreshToken: newRefreshToken,    //--------Renaming the refreshToken to newRefreshToken to avoid conflict with the incoming refreshToken-----
     } = await generateAuthTokens(user);
 
     return {

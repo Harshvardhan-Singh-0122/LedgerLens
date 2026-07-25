@@ -13,7 +13,7 @@ import {
 
 const transactionSchema = new mongoose.Schema(
     {
-        userId: {
+        userId: { //--------these create the relationship between user and transaction.-----
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
@@ -109,7 +109,7 @@ const transactionSchema = new mongoose.Schema(
 // Indexes
 transactionSchema.index({ userId: 1 });
 
-transactionSchema.index({ userId: 1, transactionDate: -1 });
+transactionSchema.index({ userId: 1, transactionDate: -1 });   //-----Compound Index-----
 
 transactionSchema.index({ userId: 1, category: 1 });
 
@@ -118,8 +118,8 @@ transactionSchema.index({ userId: 1, merchant: 1 });
 transactionSchema.index(
     { userId: 1, transactionId: 1 },
     {
-        unique: true,
-        sparse: true,
+        unique: true,  //------unique: A user cannot have the same external transaction ID twice.------
+        sparse: true,  //---With sparse: true, MongoDB ignores documents where transactionId is missing or null for uniqueness checks---
     }
 );
 

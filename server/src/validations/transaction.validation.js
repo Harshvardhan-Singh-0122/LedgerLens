@@ -9,7 +9,9 @@ import {
 
 
 export const createTransactionSchema = z.object({
-    transactionDate: z.coerce.date(),
+
+    //----coerce.date() automatically converts String ("2026-07-25") into a JavaScript Date object.--
+    transactionDate: z.coerce.date(),  
 
     amount: z
         .number()
@@ -55,3 +57,6 @@ export const createTransactionSchema = z.object({
 });
 
 export const updateTransactionSchema = createTransactionSchema.partial();
+
+// Partial() makes all fields optional for update operations, allowing users to update only the fields 
+// they want without requiring all fields to be present.

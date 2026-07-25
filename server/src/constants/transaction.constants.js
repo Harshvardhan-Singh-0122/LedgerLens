@@ -21,6 +21,7 @@ export const TRANSACTION_CATEGORIES = [
   "Healthcare",
   "Education",
   "Recharge",
+  "People",
   "Others",
 ];
 

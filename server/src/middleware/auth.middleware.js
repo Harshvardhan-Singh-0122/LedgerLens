@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import { verifyAccessToken } from "../utils/jwt.js";
 
@@ -35,7 +34,7 @@ export const authenticate = async (req, res, next) => {
             });
         }
 
-        req.user = user;
+        req.user = user;   //-----------adding the user details in the req body, so that we can access it in the next middleware or controller function---
 
         next();
 
