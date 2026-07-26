@@ -1,11 +1,4 @@
-const SummaryCard = ({
-  icon,
-  iconBg,
-  title,
-  amount,
-  change,
-  changeColor,
-}) => {
+const SummaryCard = ({ icon, iconBg, title, amount, change, changeColor }) => {
   return (
     <div
       className="
@@ -20,7 +13,6 @@ const SummaryCard = ({
       "
     >
       <div className="flex items-center justify-between">
-
         <div
           className="w-7 h-7 rounded-full flex items-center justify-center"
           style={{ background: iconBg }}
@@ -28,23 +20,16 @@ const SummaryCard = ({
           {icon}
         </div>
 
-        <span className="text-gray-500 font-bold">
-          •••
-        </span>
-
+        <span className="text-gray-500 font-bold">•••</span>
       </div>
 
-      <p className="text-gray-300 text-[10px] mt-1">
-        {title}
-      </p>
+      <p className="text-gray-300 text-[10px] mt-1">{title}</p>
 
-      <h2 className="text-white text-[15px] font-bold mt-1">
-        {amount}
-      </h2>
+      <h2 className="text-white text-[15px] font-bold mt-1">{amount}</h2>
 
-      <p className={`text-[8px] mt-auto ${changeColor}`}>
-        {change}
-      </p>
+      {change && (
+        <p className={`text-[8px] mt-auto ${changeColor}`}>{change}</p>
+      )}
     </div>
   );
 };

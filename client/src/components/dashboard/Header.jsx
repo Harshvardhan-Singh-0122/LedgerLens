@@ -3,7 +3,8 @@ import logo from "../../assets/LedgerLens_logo.png";
 
 const Header = () => {
   return (
-    <header className="px-4 pt-5">
+    // <header className="px-4 pt-5">
+    <header className="px-4 md:px-6 lg:px-8 pt-5">
 
       {/* Top */}
       <div className="flex items-center justify-between">
@@ -71,7 +72,7 @@ const Header = () => {
 
         <button
           className="
-            w-[87px]
+            w-[127px]
             h-[77px]
             rounded-3xl
             bg-gradient-to-br

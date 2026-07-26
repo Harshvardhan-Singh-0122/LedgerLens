@@ -27,6 +27,7 @@ const FloatingButton = () => {
         z-50
       "
     >
+    {/* // <button className="fixed bottom-20 right-5 md:hidden" > */}
       <Plus
         size={30}
         className="text-white"

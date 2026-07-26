@@ -3,18 +3,20 @@ import {
   getMonthlyExpenseTrend,
   getCategoryDistribution,
   getRecentTransactions,
+  getMonthlyStats
 } from "../services/dashboard.service.js";
 
 export const getDashboardController = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const [summary, monthlyTrend, categoryDistribution, recentTransactions] =
+    const [summary, monthlyTrend, categoryDistribution, recentTransactions, monthlyStats ] =
       await Promise.all([
         getDashboardSummary(userId),
         getMonthlyExpenseTrend(userId),
         getCategoryDistribution(userId),
         getRecentTransactions(userId),
+        getMonthlyStats(userId)
       ]);
 
       /* 
@@ -41,6 +43,7 @@ export const getDashboardController = async (req, res) => {
       data: {
         summary,
         monthlyTrend,
+        monthlyStats,
         categoryDistribution,
         recentTransactions,
       },

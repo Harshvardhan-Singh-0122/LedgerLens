@@ -155,6 +155,78 @@ export const getCategoryDistribution = async (userId) => {
 };
 
 
+//-------------Addded after making frontend-------
+
+export const getMonthlyStats = async (userId) => {
+  const currentDate = new Date();
+
+  const startOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+
+  const endOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0,
+    23,
+    59,
+    59
+  );
+
+  const dailyExpenses = await Transaction.aggregate([
+    {
+      $match: {
+        user: userId,
+        type: "expense",
+        transactionDate: {
+          $gte: startOfMonth,
+          $lte: endOfMonth,
+        },
+      },
+    },
+    {
+      $group: {
+        _id: {
+          day: { $dayOfMonth: "$transactionDate" },
+        },
+        totalExpense: {
+          $sum: "$amount",
+        },
+      },
+    },
+    {
+      $sort: {
+        "_id.day": 1,
+      },
+    },
+  ]);
+
+  if (dailyExpenses.length === 0) {
+    return {
+      highestDay: 0,
+      averageDaily: 0,
+      lowestDay: 0,
+    };
+  }
+
+  const amounts = dailyExpenses.map((item) => item.totalExpense);
+
+  const highestDay = Math.max(...amounts);
+  const lowestDay = Math.min(...amounts);
+
+  const total = amounts.reduce((sum, value) => sum + value, 0);
+
+  const averageDaily = Math.round(total / dailyExpenses.length);
+
+  return {
+    highestDay,
+    averageDaily,
+    lowestDay,
+  };
+};
+
 export const getRecentTransactions = async (userId, limit = 5) => {
     return await Transaction.find({ userId })
         .sort({ transactionDate: -1 })

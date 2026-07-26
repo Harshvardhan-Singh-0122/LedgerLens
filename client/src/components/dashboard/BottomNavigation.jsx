@@ -27,6 +27,7 @@ const BottomNavigation = () => {
         md:max-w-full
       "
     >
+    {/* // <div className="fixed bottom-0 left-0 right-0 md:hidden" > */}
       <button className="flex flex-col items-center gap-1 text-violet-500">
         <House size={22} />
         <span className="text-xs">Home</span>
