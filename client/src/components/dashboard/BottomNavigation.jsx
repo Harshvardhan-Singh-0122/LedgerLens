@@ -1,11 +1,11 @@
-import {
-  House,
-  ChartColumn,
-  ReceiptText,
-  User,
-} from "lucide-react";
+import { House, ChartColumn, ReceiptText, User } from "lucide-react";
+
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BottomNavigation = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div
       className="
@@ -27,8 +27,13 @@ const BottomNavigation = () => {
         md:max-w-full
       "
     >
-    {/* // <div className="fixed bottom-0 left-0 right-0 md:hidden" > */}
-      <button className="flex flex-col items-center gap-1 text-violet-500">
+      {/* // <div className="fixed bottom-0 left-0 right-0 md:hidden" > */}
+      <button
+        onClick={() => navigate("/")}
+        className={`flex flex-col items-center gap-1 ${
+          location.pathname === "/" ? "text-violet-500" : "text-gray-500"
+        }`}
+      >
         <House size={22} />
         <span className="text-xs">Home</span>
       </button>
@@ -41,9 +46,16 @@ const BottomNavigation = () => {
       {/* Space for Floating Button */}
       <div className="w-16"></div>
 
-      <button className="flex flex-col items-center gap-1 text-gray-500">
+      <button
+        onClick={() => navigate("/transactions")}
+        className={`flex flex-col items-center gap-1 ${
+          location.pathname === "/transactions"
+            ? "text-violet-500"
+            : "text-gray-500"
+        }`}
+      >
         <ReceiptText size={22} />
-        <span className="text-xs">History</span>
+        <span className="text-xs">Transactions</span>
       </button>
 
       <button className="flex flex-col items-center gap-1 text-gray-500">

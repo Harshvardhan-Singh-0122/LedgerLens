@@ -4,6 +4,7 @@ import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import VerifyEmail from "../pages/auth/VerifyEmail";
+import Transactions from "../pages/transactions/Transactions";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -46,7 +47,15 @@ const AppRoutes = () => {
             </PublicRoute>
           }
         />
-        
+
+        <Route
+          path="/transactions"
+          element={
+            <ProtectedRoute>
+              <Transactions />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

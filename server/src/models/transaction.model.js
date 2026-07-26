@@ -21,7 +21,6 @@ const transactionSchema = new mongoose.Schema(
 
         transactionId: {
             type: String,
-            default: null,
         },
 
         transactionDate: {
