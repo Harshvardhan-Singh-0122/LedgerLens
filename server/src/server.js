@@ -15,6 +15,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from './routes/auth.routes.js';
 import transactionRoutes from "./routes/transaction.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
+import csvRoutes from "./routes/csv.routes.js";
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/transactions", transactionRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/csv", csvRoutes);
 
 app.get('/', (req,res) =>{
     res.send('LedgerLens API is running...');

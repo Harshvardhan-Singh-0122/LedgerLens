@@ -1,8 +1,10 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
+
 import { ChevronDown } from "lucide-react";
 
 import { formatCurrency } from "../../utils/formatCurrency";
+
 
 const colors = [
   "#8B5CF6",
@@ -14,7 +16,8 @@ const colors = [
   "#06B6D4",
 ];
 
-const CategoryChart = ({ categoryDistribution = [] }) => {
+const CategoryChart = ({ 
+  categoryDistribution = [],  }) => {
 
   const totalExpense = categoryDistribution.reduce(
     (sum, item) => sum + item.totalAmount,
@@ -39,52 +42,59 @@ const CategoryChart = ({ categoryDistribution = [] }) => {
           Expense by Category
         </h2>
 
-        <button className="flex items-center gap-1 border border-[#2A3344] rounded-lg px-2.5 py-1 text-[10px] text-white">
+        {/* <button className="flex items-center gap-1 border border-[#2A3344] rounded-lg px-2.5 py-1 text-[10px] text-white">
           This Month
           <ChevronDown size={10} />
-        </button>
+        </button> */}
       </div>
 
       <div className="flex items-center justify-between mt-2">
         <div className="w-[46%] h-36">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                dataKey="amount"
-                innerRadius={36}
-                outerRadius={60}
-                stroke="none"
-                paddingAngle={4}
-              >
-                {data.map((item) => (
-                  <Cell key={item.name} fill={item.color} />
-                ))}
-              </Pie>
+          {data.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={data}
+                  dataKey="amount"
+                  innerRadius={36}
+                  outerRadius={60}
+                  stroke="none"
+                  paddingAngle={4}
+                >
+                  {data.map((item) => (
+                    <Cell key={item.name} fill={item.color} />
+                  ))}
+                </Pie>
 
-              <text
-                x="50%"
-                y="43%"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="#94A3B8"
-                fontSize="11"
-              >
-                Total
-              </text>
-              <text
-                x="50%"
-                y="57%"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="#ffffff"
-                fontSize="14"
-                fontWeight="700"
-              >
-                {formatCurrency(totalExpense)}
-              </text>
-            </PieChart>
-          </ResponsiveContainer>
+                <text
+                  x="50%"
+                  y="43%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#94A3B8"
+                  fontSize="11"
+                >
+                  Total
+                </text>
+
+                <text
+                  x="50%"
+                  y="57%"
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill="#ffffff"
+                  fontSize="14"
+                  fontWeight="700"
+                >
+                  {formatCurrency(totalExpense)}
+                </text>
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-500 text-xs">
+              No Data
+            </div>
+          )}
         </div>
 
         <div className="flex-1 space-y-2">

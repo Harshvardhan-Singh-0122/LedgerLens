@@ -27,9 +27,40 @@ export const createTransactionController = async (req, res) => {
     }
 };
 
+// export const getAllTransactionsController = async (req, res) => {
+//     try {
+//         const transactions = await getAllTransactions(req.user._id);
+
+//         res.status(200).json({
+//             success: true,
+//             transactions,
+//         });
+//     } catch (error) {
+//         throw error;
+//     }
+// };
+
+
 export const getAllTransactionsController = async (req, res) => {
     try {
-        const transactions = await getAllTransactions(req.user._id);
+        const {
+            month,
+            year,
+            type,
+            category,
+            sortBy,
+        } = req.query;
+
+        const transactions = await getAllTransactions(
+            req.user._id,
+            {
+                month,
+                year,
+                type,
+                category,
+                sortBy,
+            }
+        );
 
         res.status(200).json({
             success: true,

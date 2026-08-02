@@ -1,9 +1,14 @@
 import { formatCurrency } from "../../utils/formatCurrency";
 const ChartStats = ({ stats }) => {
+  console.log("Stats in ChartStats:", stats);
   
   const highestDay = stats?.highestDay ?? 0;
+  const highestDayLabel = stats?.highestDayLabel ?? "--";
+
   const averageDaily = stats?.averageDaily ?? 0;
+
   const lowestDay = stats?.lowestDay ?? 0;
+  const lowestDayLabel = stats?.lowestDayLabel ?? "--";
   
   return (
     <div className="grid grid-cols-3 gap-3 mt-5">
@@ -18,7 +23,7 @@ const ChartStats = ({ stats }) => {
         </h3>
 
         <p className="text-green-400 text-[11px] mt-1">
-          30 Jul
+           {highestDayLabel}
         </p>
       </div>
 
@@ -46,7 +51,7 @@ const ChartStats = ({ stats }) => {
         </h3>
 
         <p className="text-red-400 text-[10px] mt-1">
-          1 Jul
+          {lowestDayLabel}
         </p>
       </div>
 

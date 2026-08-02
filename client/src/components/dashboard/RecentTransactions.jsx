@@ -11,6 +11,8 @@ import {
 
 import { formatCurrency } from "../../utils/formatCurrency";
 
+import { useNavigate, useLocation } from "react-router-dom";
+
 const categoryIcons = {
   Food: Pizza,
   Shopping: ShoppingBag,
@@ -65,6 +67,9 @@ const categoryColors = {
 };
 
 const RecentTransactions = ({ transactions = [] }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   if (transactions.length === 0) {
     return (
       <div className="mx-4 mt-5 rounded-[28px] bg-[#141C28] border border-[#222B38] p-6 text-center text-gray-400">
@@ -81,7 +86,9 @@ const RecentTransactions = ({ transactions = [] }) => {
           Recent Transactions
         </h2>
 
-        <button className="text-violet-400 text-[10px] font-medium">
+        <button 
+          onClick={() => navigate("/transactions")}
+          className="text-violet-400 text-[10px] font-medium">
           View All
         </button>
       </div>

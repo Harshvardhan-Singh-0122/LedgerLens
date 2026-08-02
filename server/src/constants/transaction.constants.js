@@ -12,17 +12,22 @@ export const TRANSACTION_TYPES = [
 // ================================
 
 export const TRANSACTION_CATEGORIES = [
-  "Food & Dining",
-  "Grocery",
-  "Shopping",
-  "Bills & Utilities",
-  "Transport",
-  "Entertainment",
-  "Healthcare",
-  "Education",
-  "Recharge",
-  "People",
-  "Others",
+    "Fruits & Vegetables",
+    "Fast Food",
+    "Food",
+    "Healthy Drinks",
+    "Unhealthy Drinks",
+    "Grocery",
+    "Petrol",
+    "Healthcare",
+    "Education",
+    "Fun",
+    "Shopping",
+    "Bills",
+    "People",
+    "Travel",
+    "Income",
+    "Others",
 ];
 
 // ================================

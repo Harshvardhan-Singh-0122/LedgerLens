@@ -1,0 +1,251 @@
+export const CATEGORY_RULES = {
+
+    "Fruits & Vegetables": [
+        "banana",
+        "apple",
+        "pineapple",
+        "mango",
+        "orange",
+        "papaya",
+        "grapes",
+        "watermelon",
+        "onion",
+        "tomato",
+        "tamatar",
+        "potato",
+        "aloo",
+        "carrot",
+        "cucumber",
+        "bhindi",
+        "capsicum"
+    ],
+
+    "Fast Food": [
+        "fastfood", 
+        "fast food", 
+        "fast-food",
+        "pizza",
+        "burger",
+        "momos",
+        "momo",
+        "maggi",
+        "meggi",
+        "patties",
+        "patti",
+        "bread",
+        "sandwich",
+        "roll",
+        "fries",
+        "pani puri",
+        "golgappa",
+        "chaat",
+        "pav bhaji",
+        "dominos",
+        "pizza hut",
+        "kfc",
+        "mcdonald",
+        "subway",
+        "chips",
+        "kurkure",
+        "biscuit",
+        "namkeen",
+        "samosa",
+        "kachori",
+        "vadapav",
+        "vada pav",
+        "pizza burger",
+        "frankie",
+        "wrap",
+        "noodles"
+    ],
+
+    Food: [
+        "food",
+        "khana",
+        "restaurant",
+        "hotel",
+        "canteen",
+        "mess",
+        "thali"
+    ],
+
+    "Healthy Drinks": [
+        "milk",
+        "juice",
+        "lassi",
+        "dahi",
+        "curd",
+        "chaach",
+        "chach",
+        "buttermilk",
+        "shake",
+        "protein",
+        "whey",
+        "oats",
+        "coconut water"
+    ],
+
+    "Unhealthy Drinks": [
+        "tea",
+        "chai",
+        "coffee",
+        "coke",
+        "pepsi",
+        "sprite",
+        "limca",
+        "thumbs up",
+        "soft drink",
+        "sting",
+        "red bull",
+        "monster",
+        "fanta",
+        "mountain dew",
+        "dew",
+        "maaza",
+        "slice"
+    ],
+
+    Grocery: [
+        "grocery",
+        "dmart",
+        "d-mart",
+        "mart",
+        "rice",
+        "dal",
+        "rajma",
+        "chole",
+        "atta",
+        "oil",
+        "salt",
+        "sugar",
+        "facewash",
+        "soap",
+        "shampoo",
+        "toothpaste",
+        "brush"
+    ],
+
+    Petrol: [
+        "petrol",
+        "fuel",
+        "diesel",
+        "petrol pump"
+    ],
+
+    Healthcare: [
+        "hospital",
+        "doctor",
+        "pharmacy",
+        "apollo",
+        "medicine",
+        "tablet",
+        "medicos",,
+        "chemist",
+        "medical",
+        "xray",
+        "lab",
+        "diagnostic",
+        "pathology",
+        "clinic"
+    ],
+
+    Education: [
+        "education",
+        "edu",
+        "fees",
+        "college",
+        "school",
+        "book",
+        "stationery",
+        "stationers",
+        "course",
+        "exam"
+    ],
+
+    Fun: [
+        "cricket",
+        "turf",
+        "turff",
+        "football",
+        "badminton",
+        "pool",
+        "gamezone",
+        "bowling",
+        "movie",
+        "cinema",
+        "swimming",
+        "swimming pool",
+        "play",
+        "netflix",
+        "prime",
+        "hotstar",
+        "spotify",
+        "gaming",
+        "snooker",
+        "cafe",
+        "arcade"
+    ],
+
+    Shopping: [
+        "amazon",
+        "flipkart",
+        "myntra",
+        "ajio",
+        "meesho",
+        "shirt",
+        "pant",
+        "shoes",
+        "clothes"
+    ],
+
+   Bills: [
+        "bill",
+        "bills",
+
+        "rent",
+        "room rent",
+        "hostel rent",
+
+        "electricity",
+        "light bill",
+        "electric bill",
+
+        "water",
+        "water bill",
+
+        "cooler",
+        "cooler bill",
+
+        "wifi",
+        "internet",
+        "broadband",
+
+        "recharge",
+        "mobile recharge",
+
+        "jio",
+        "airtel",
+        "artel",
+        "vi",
+        "vodafone",
+        "idea",
+        "bsnl",
+
+        "gas",
+        "cylinder"
+    ],
+
+    Travel: [
+        "uber",
+        "ola",
+        "rapido",
+        "metro",
+        "bus",
+        "train",
+        "auto",
+        "rickshaw",
+        "cab",
+        "taxi",
+        "flight"
+    ],
+};
