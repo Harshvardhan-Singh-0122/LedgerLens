@@ -1,8 +1,11 @@
 import { useRef, useState } from "react";
 import { Upload, X, FileText } from "lucide-react";
 
-const CsvUploadModal = ({ open, onClose }) => {
+import { uploadCsv } from "../../services/csv.service";
+
+const CsvUploadModal = ({ open, onClose, onUploadSuccess }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fileInputRef = useRef();
 
@@ -29,22 +32,41 @@ const CsvUploadModal = ({ open, onClose }) => {
     handleFile(e.dataTransfer.files[0]);
   };
 
+  const handleContinue = async () => {
+    if (!selectedFile) return;
+
+    try {
+      setLoading(true);
+
+      const formData = new FormData();
+
+      formData.append("file", selectedFile);
+
+      const response = await uploadCsv(formData);
+
+      onUploadSuccess(response.data);
+
+      setSelectedFile(null);
+
+      onClose();
+    } catch (error) {
+      console.log(error);
+      alert(error.response?.data?.message || "Upload failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center px-4">
-
       <div className="w-full max-w-lg rounded-3xl bg-[#141C28] border border-[#232B3B] p-6">
-
         {/* Header */}
         <div className="flex justify-between items-center">
-
-          <h2 className="text-xl font-semibold text-white">
-            Import CSV
-          </h2>
+          <h2 className="text-xl font-semibold text-white">Import CSV</h2>
 
           <button onClick={onClose}>
             <X className="text-gray-400" />
           </button>
-
         </div>
 
         {/* Drop Area */}
@@ -61,18 +83,11 @@ const CsvUploadModal = ({ open, onClose }) => {
             text-center
           "
         >
-          <Upload
-            size={42}
-            className="mx-auto text-violet-400"
-          />
+          <Upload size={42} className="mx-auto text-violet-400" />
 
-          <h3 className="mt-4 text-white font-medium">
-            Drag & Drop CSV Here
-          </h3>
+          <h3 className="mt-4 text-white font-medium">Drag & Drop CSV Here</h3>
 
-          <p className="text-sm text-gray-400 mt-2">
-            or
-          </p>
+          <p className="text-sm text-gray-400 mt-2">or</p>
 
           <button
             onClick={() => fileInputRef.current.click()}
@@ -100,37 +115,26 @@ const CsvUploadModal = ({ open, onClose }) => {
         {/* Selected File */}
         {selectedFile && (
           <div className="mt-6 flex items-center justify-between bg-[#0B1120] rounded-xl p-4">
-
             <div className="flex items-center gap-3">
-
               <FileText className="text-violet-400" />
 
               <div>
-
-                <p className="text-white text-sm">
-                  {selectedFile.name}
-                </p>
+                <p className="text-white text-sm">{selectedFile.name}</p>
 
                 <p className="text-gray-400 text-xs">
                   {(selectedFile.size / 1024).toFixed(1)} KB
                 </p>
-
               </div>
-
             </div>
 
-            <button
-              onClick={() => setSelectedFile(null)}
-            >
+            <button onClick={() => setSelectedFile(null)}>
               <X className="text-red-400" />
             </button>
-
           </div>
         )}
 
         {/* Buttons */}
         <div className="flex justify-end gap-3 mt-8">
-
           <button
             onClick={onClose}
             className="
@@ -146,7 +150,8 @@ const CsvUploadModal = ({ open, onClose }) => {
           </button>
 
           <button
-            disabled={!selectedFile}
+            onClick={handleContinue}
+            disabled={!selectedFile || loading}
             className="
               px-5
               py-2
@@ -157,13 +162,10 @@ const CsvUploadModal = ({ open, onClose }) => {
               disabled:cursor-not-allowed
             "
           >
-            Continue
+            {loading ? "Uploading..." : "Continue"}
           </button>
-
         </div>
-
       </div>
-
     </div>
   );
 };

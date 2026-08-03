@@ -128,7 +128,6 @@
 
 // export default Transactions;
 
-
 //-----------------For updating the Transaction from Month wise button----------------
 
 import { useContext, useEffect, useState } from "react";
@@ -141,10 +140,10 @@ import TransactionGroup from "../../components/transactions/TransactionGroup";
 import FilterModal from "../../components/transactions/FilterModal";
 
 import { DashboardFilterContext } from "../../context/DashboardFilterContext";
+import { TransactionModalContext } from "../../context/TransactionModalContext";
+import { AppRefreshContext } from "../../context/AppRefreshContext";
 
 import { getAllTransactions } from "../../services/transaction.service";
-
-
 
 import {
   formatDate,
@@ -152,12 +151,16 @@ import {
 } from "../../utils/transaction.utils";
 
 const Transactions = () => {
+  const { selectedMonth, setSelectedMonth, selectedYear, setSelectedYear } =
+    useContext(DashboardFilterContext);
+
   const {
-    selectedMonth,
-    setSelectedMonth,
-    selectedYear,
-    setSelectedYear,
-  } = useContext(DashboardFilterContext);
+    showTransactionModal,
+    setShowTransactionModal,
+    setSelectedTransaction,
+  } = useContext(TransactionModalContext);
+
+  const { refreshKey } = useContext(AppRefreshContext);
 
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -171,13 +174,7 @@ const Transactions = () => {
 
   useEffect(() => {
     fetchTransactions();
-  }, [
-    selectedMonth,
-    selectedYear,
-    type,
-    category,
-    sortBy,
-  ]);
+  }, [selectedMonth, selectedYear, type, category, sortBy, refreshKey]);
 
   const fetchTransactions = async () => {
     try {
@@ -213,19 +210,19 @@ const Transactions = () => {
 
   const groupedTransactions = groupTransactionsByDate(transactions);
 
+  const openAddTransaction = () => {
+    setSelectedTransaction(null);
+    setShowTransactionModal(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#0B1120]">
       <div className="relative max-w-[1440px] mx-auto">
-
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-violet-600/10 blur-[140px]" />
 
         <main className="relative z-10 pb-28">
-
           <div className="px-4 md:px-6 lg:px-8 pt-5">
-
-            <h1 className="text-white text-[28px] font-bold">
-              Transactions
-            </h1>
+            <h1 className="text-white text-[28px] font-bold">Transactions</h1>
 
             <p className="text-gray-400 text-sm mt-2">
               Manage all your income and expenses
@@ -242,7 +239,6 @@ const Transactions = () => {
             />
 
             <div className="mt-6 space-y-5">
-
               {Object.entries(groupedTransactions).map(([date, items]) => (
                 <TransactionGroup
                   key={date}
@@ -253,15 +249,10 @@ const Transactions = () => {
               ))}
 
               {loading && (
-                <p className="text-center text-gray-400">
-                  Loading...
-                </p>
+                <p className="text-center text-gray-400">Loading...</p>
               )}
-
             </div>
-
           </div>
-
         </main>
 
         <FilterModal
@@ -277,10 +268,11 @@ const Transactions = () => {
           onReset={resetFilters}
         />
 
-        {!showFilters && <FloatingButton />}
+        {!showFilters && !showTransactionModal && (
+          <FloatingButton onClick={openAddTransaction} />
+        )}
 
         <BottomNavigation />
-
       </div>
     </div>
   );

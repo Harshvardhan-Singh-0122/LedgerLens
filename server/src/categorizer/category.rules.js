@@ -139,7 +139,7 @@ export const CATEGORY_RULES = {
         "apollo",
         "medicine",
         "tablet",
-        "medicos",,
+        "medicos",
         "chemist",
         "medical",
         "xray",

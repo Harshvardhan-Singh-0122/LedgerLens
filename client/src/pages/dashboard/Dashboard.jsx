@@ -21,7 +21,6 @@
 //     try {
 //       const response = await getDashboard();
 
-
 //       setDashboardData(response.data);
 
 //       console.log(response.data.monthlyStats);
@@ -80,7 +79,6 @@
 // };
 
 // export default Dashboard;
-
 
 //-----------------For updating the dashboard from Month wise button----------------
 
@@ -195,7 +193,6 @@
 
 // export default Dashboard;
 
-
 //------------------------To add the feature of Upload CSV-----------------
 import { useContext, useEffect, useState } from "react";
 
@@ -207,8 +204,11 @@ import RecentTransactions from "../../components/dashboard/RecentTransactions";
 import BottomNavigation from "../../components/dashboard/BottomNavigation";
 import FloatingButton from "../../components/dashboard/FloatingButton";
 import CsvUploadModal from "../../components/dashboard/CsvUploadModal";
+import CsvPreviewModal from "../../components/csv/CsvPreviewModal";
 
 import { DashboardFilterContext } from "../../context/DashboardFilterContext";
+import { TransactionModalContext } from "../../context/TransactionModalContext";
+import { AppRefreshContext } from "../../context/AppRefreshContext";
 
 import { getDashboard } from "../../services/dashboard.service";
 
@@ -217,25 +217,31 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
-  const {
-    selectedMonth,
-    setSelectedMonth,
-    selectedYear,
-    setSelectedYear,
-  } = useContext(DashboardFilterContext);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [previewData, setPreviewData] = useState(null);
+
+  const { selectedMonth, setSelectedMonth, selectedYear, setSelectedYear } =
+    useContext(DashboardFilterContext);
+
+  const { setShowTransactionModal, setSelectedTransaction } = useContext(
+    TransactionModalContext,
+  );
+
+  const { refreshKey } = useContext(AppRefreshContext);
 
   useEffect(() => {
-    fetchDashboard();
-  }, [selectedMonth, selectedYear]);
+  fetchDashboard();
+}, [
+  selectedMonth,
+  selectedYear,
+  refreshKey,
+]);
 
   const fetchDashboard = async () => {
     try {
       setLoading(true);
 
-      const response = await getDashboard(
-        selectedMonth,
-        selectedYear
-      );
+      const response = await getDashboard(selectedMonth, selectedYear);
 
       setDashboardData(response.data);
     } catch (error) {
@@ -245,17 +251,18 @@ const Dashboard = () => {
     }
   };
 
+  const openAddTransaction = () => {
+    setSelectedTransaction(null);
+    setShowTransactionModal(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#0B1120]">
       <div className="relative max-w-[1440px] mx-auto">
-
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-violet-600/10 blur-[140px]" />
 
         <main className="relative z-10 pb-28">
-
-          <Header
-            onUploadClick={() => setIsUploadModalOpen(true)}
-          />
+          <Header onUploadClick={() => setIsUploadModalOpen(true)} />
 
           <SummaryCards summary={dashboardData?.summary} />
 
@@ -302,18 +309,29 @@ const Dashboard = () => {
           <RecentTransactions
             transactions={dashboardData?.recentTransactions}
           />
-
         </main>
 
-        <FloatingButton />
+        <FloatingButton onClick={openAddTransaction} />
 
         <BottomNavigation />
 
         <CsvUploadModal
           open={isUploadModalOpen}
           onClose={() => setIsUploadModalOpen(false)}
+          onUploadSuccess={(data) => {
+            setPreviewData(data);
+            setIsPreviewOpen(true);
+          }}
         />
 
+        <CsvPreviewModal
+          open={isPreviewOpen}
+          onClose={() => setIsPreviewOpen(false)}
+          data={previewData}
+          onImportSuccess={() => {
+            fetchDashboard();
+          }}
+        />
       </div>
     </div>
   );

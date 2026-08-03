@@ -1,6 +1,6 @@
 import { formatCurrency } from "../../utils/formatCurrency";
 const ChartStats = ({ stats }) => {
-  console.log("Stats in ChartStats:", stats);
+  // console.log("Stats in ChartStats:", stats);
   
   const highestDay = stats?.highestDay ?? 0;
   const highestDayLabel = stats?.highestDayLabel ?? "--";

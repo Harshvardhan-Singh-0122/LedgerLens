@@ -5,20 +5,27 @@ export const TRANSACTION_TYPES = [
 ];
 
 export const TRANSACTION_CATEGORIES = [
-  "Food & Dining",
-  "Shopping",
-  "Bills",
-  "Travel",
-  "Entertainment",
+  "Fruits & Vegetables",
+  "Fast Food",
+  "Food",
+  "Healthy Drinks",
+  "Unhealthy Drinks",
+  "Grocery",
+  "Petrol",
   "Healthcare",
   "Education",
-  "Salary",
+  "Fun",
+  "Shopping",
+  "Bills",
+  "People",
+  "Travel",
+  "Income",
   "Others",
 ];
 
 export const SORT_OPTIONS = [
   "Newest",
   "Oldest",
-  "Highest",
-  "Lowest",
+  "Highest Amount",
+  "Lowest Amount",
 ];
