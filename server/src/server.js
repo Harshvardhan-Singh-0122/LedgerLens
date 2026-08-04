@@ -1,3 +1,9 @@
+//----------Deployment purpose-----------
+import dns from "node:dns";
+
+dns.setDefaultResultOrder("ipv4first");
+
+
 //-----------------to load the Environment variabless-----------
 import "./config/env.js"  
 
