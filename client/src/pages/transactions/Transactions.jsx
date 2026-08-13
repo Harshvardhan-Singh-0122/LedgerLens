@@ -221,6 +221,7 @@ const Transactions = () => {
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-violet-600/10 blur-[140px]" />
 
         <main className="relative z-10 pb-28">
+        {/* <main className="relative z-[100] pb-28"> */}
           <div className="px-4 md:px-6 lg:px-8 pt-5">
             <h1 className="text-white text-[28px] font-bold">Transactions</h1>
 

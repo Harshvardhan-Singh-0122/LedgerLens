@@ -23,6 +23,7 @@ const AddEditTransactionForm = ({ transaction, onClose, onSuccess }) => {
     note: "",
     transactionDate: new Date().toISOString().slice(0, 16),
   });
+  const [loading, setLoading] = useState(false);
 
   const { refreshApp } = useContext(AppRefreshContext);
 
@@ -41,21 +42,49 @@ const AddEditTransactionForm = ({ transaction, onClose, onSuccess }) => {
     }
   }, [transaction]);
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "amount" ? Number(value) : value,
+    });
+    
+  };
 
-  setFormData({
-    ...formData,
-    [name]: name === "amount"
-      ? Number(value)
-      : value,
-  });
+  // const handleSubmit = async () => {
+  //   try {
+  //     if (transaction) {
+  //       await editTransaction(transaction._id, formData);
+  //     } else {
+  //       await addTransaction(formData);
+  //     }
 
-};
+  //     toast.success(
+  //       transaction
+  //         ? "Transaction updated successfully."
+  //         : "Transaction added successfully.",
+  //     );
 
+  //     refreshApp();
+
+  //     if (onSuccess) {
+  //       onSuccess();
+  //     }
+
+  //     onClose();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  //-----------For edit and delete transaction feature----------------
   const handleSubmit = async () => {
+    if (loading) return;
+
     try {
+      setLoading(true);
+
       if (transaction) {
         await editTransaction(transaction._id, formData);
       } else {
@@ -77,6 +106,10 @@ const handleChange = (e) => {
       onClose();
     } catch (error) {
       console.log(error);
+
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,7 +118,6 @@ const handleChange = (e) => {
       <h2 className="text-xl font-semibold text-white mb-6">
         {transaction ? "Edit Transaction" : "Add Transaction"}
       </h2>
-
       <div className="space-y-4">
         <input
           name="amount"
@@ -144,11 +176,18 @@ const handleChange = (e) => {
           className="w-full bg-[#0B1120] border border-[#232B3B] rounded-xl p-3 text-white"
         />
       </div>
-
+      {/* <TransactionFormButtons
+        transaction={transaction}
+        onClose={onClose}
+        onSubmit={handleSubmit}
+      /> */}
+      
+      {/* //--------------For edit and delete transaction feature---------------- */}
       <TransactionFormButtons
         transaction={transaction}
         onClose={onClose}
         onSubmit={handleSubmit}
+        loading={loading}
       />
     </div>
   );

@@ -27,7 +27,7 @@ const TransactionGroup = ({ date, items, formatDate }) => {
         </div>
       </div>
 
-      <div className="bg-[#141C28] border border-[#232B3B] rounded-3xl overflow-hidden">
+      <div className="bg-[#141C28] border border-[#232B3B] rounded-3xl overflow-visible">
         {items.map((transaction, index) => (
           <TransactionItem
             key={transaction._id}
