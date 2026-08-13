@@ -70,6 +70,7 @@ export const CATEGORY_RULES = {
     ],
 
     "Healthy Drinks": [
+        "healthy drinks",
         "milk",
         "juice",
         "lassi",
@@ -86,6 +87,7 @@ export const CATEGORY_RULES = {
     ],
 
     "Unhealthy Drinks": [
+        "unhealthy drinks",
         "tea",
         "chai",
         "coffee",
