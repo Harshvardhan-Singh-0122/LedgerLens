@@ -357,6 +357,94 @@ export const getCategoryDistribution = async (userId, month, year) => {
   ]);
 };
 
+// export const getMonthlyStats = async (userId, month, year) => {
+//   const { startDate, endDate } = getMonthRange(month, year);
+
+//   const dailyExpenses = await Transaction.aggregate([
+//     {
+//       $match: {
+//         userId,
+//         type: "Expense",
+//         transactionDate: {
+//           $gte: startDate,
+//           $lte: endDate,
+//         },
+//       },
+//     },
+//     {
+//       $group: {
+//         _id: {
+//           day: {
+//             $dayOfMonth: {
+//               date: "$transactionDate",
+//               timezone: "Asia/Kolkata",
+//             },
+//           },
+//         },
+//         totalExpense: {
+//           $sum: "$amount",
+//         },
+//       },
+//     },
+//     {
+//       $sort: {
+//         "_id.day": 1,
+//       },
+//     },
+//   ]);
+
+
+//   console.log(dailyExpenses);
+
+//   if (dailyExpenses.length === 0) {
+//     return {
+//       highestDay: 0,
+//       highestDayLabel: "--",
+
+//       averageDaily: 0,
+
+//       lowestDay: 0,
+//       lowestDayLabel: "--",
+//     };
+//   }
+
+//   let highest = dailyExpenses[0];
+//   let lowest = dailyExpenses[0];
+
+//   dailyExpenses.forEach((item) => {
+//     if (item.totalExpense > highest.totalExpense) {
+//       highest = item;
+//     }
+
+//     if (item.totalExpense < lowest.totalExpense) {
+//       lowest = item;
+//     }
+//   });
+
+//   const totalExpense = dailyExpenses.reduce(
+//     (sum, item) => sum + item.totalExpense,
+//     0,
+//   );
+
+//   const averageDaily = Math.round(totalExpense / dailyExpenses.length);
+
+//   const monthName = new Date(year, month - 1).toLocaleString("en-US", {
+//     month: "short",
+//   });
+
+//   return {
+//     highestDay: highest.totalExpense,
+//     highestDayLabel: `${highest._id.day} ${monthName}`,
+
+//     averageDaily,
+
+//     lowestDay: lowest.totalExpense,
+//     lowestDayLabel: `${lowest._id.day} ${monthName}`,
+//   };
+// };
+
+
+
 export const getMonthlyStats = async (userId, month, year) => {
   const { startDate, endDate } = getMonthRange(month, year);
 
@@ -365,6 +453,7 @@ export const getMonthlyStats = async (userId, month, year) => {
       $match: {
         userId,
         type: "Expense",
+        category: { $ne: "Bills" },
         transactionDate: {
           $gte: startDate,
           $lte: endDate,
@@ -393,8 +482,7 @@ export const getMonthlyStats = async (userId, month, year) => {
     },
   ]);
 
-
-  console.log(dailyExpenses);
+  const daysInMonth = new Date(year, month, 0).getDate();
 
   if (dailyExpenses.length === 0) {
     return {
@@ -423,10 +511,11 @@ export const getMonthlyStats = async (userId, month, year) => {
 
   const totalExpense = dailyExpenses.reduce(
     (sum, item) => sum + item.totalExpense,
-    0,
+    0
   );
 
-  const averageDaily = Math.round(totalExpense / dailyExpenses.length);
+  // Bills are excluded and every day of the month is considered
+  const averageDaily = Math.round(totalExpense / daysInMonth);
 
   const monthName = new Date(year, month - 1).toLocaleString("en-US", {
     month: "short",

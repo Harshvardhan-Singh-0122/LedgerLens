@@ -24,3 +24,12 @@ export const removeTransaction = async (id) => {
   const response = await transactionApi.deleteTransaction(id);
   return response.data;
 };
+
+export const removeTransactionsByMonth = async (month, year) => {
+  const response = await transactionApi.deleteTransactionsByMonth(
+    month,
+    year
+  );
+
+  return response.data;
+};

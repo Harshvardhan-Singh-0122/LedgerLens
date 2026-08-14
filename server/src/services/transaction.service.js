@@ -104,3 +104,34 @@ export const deleteTransaction = async (userId, transactionId) => {
         userId,
     });
 };
+
+//-------------For adding the button for deleting all transactions of month-----------------
+export const deleteTransactionsByMonth = async (
+    userId,
+    month,
+    year
+) => {
+    // Same month-range calculation used by Dashboard
+    const startDate = new Date(
+        Date.UTC(year, month - 1, 1)
+    );
+
+    startDate.setUTCHours(-5, -30, 0, 0);
+
+    const endDate = new Date(
+        Date.UTC(year, month, 1)
+    );
+
+    endDate.setUTCHours(-5, -30, -1, 999);
+
+    const result = await Transaction.deleteMany({
+        userId,
+        transactionDate: {
+            $gte: startDate,
+            $lte: endDate,
+        },
+    });
+
+    return result.deletedCount;
+};
+

@@ -6,6 +6,7 @@ import {
     getTransactionByIdController,
     updateTransactionController,
     deleteTransactionController,
+    deleteTransactionsByMonthController,
 } from "../controllers/transaction.controller.js";
 
 
@@ -25,6 +26,8 @@ router.get("/:id", getTransactionByIdController);
 
 //-------Updates a transaction---------
 router.put("/:id", updateTransactionController);
+
+router.delete("/month", deleteTransactionsByMonthController);
 
 router.delete("/:id", deleteTransactionController);
 

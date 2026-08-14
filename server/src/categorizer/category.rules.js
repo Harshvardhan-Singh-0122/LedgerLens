@@ -1,6 +1,9 @@
 export const CATEGORY_RULES = {
 
     "Fruits & Vegetables": [
+        "vegetables",
+        "vegies",
+        "fruits",
         "banana",
         "apple",
         "pineapple",
@@ -21,6 +24,7 @@ export const CATEGORY_RULES = {
     ],
 
     "Fast Food": [
+        "fastt",
         "fastfood", 
         "fast food", 
         "fast-food",
@@ -135,6 +139,8 @@ export const CATEGORY_RULES = {
     ],
 
     Healthcare: [
+        "healthcare",
+        "health",
         "hospital",
         "doctor",
         "pharmacy",
@@ -165,6 +171,7 @@ export const CATEGORY_RULES = {
     ],
 
     Fun: [
+        "fun",
         "cricket",
         "turf",
         "turff",
@@ -189,6 +196,7 @@ export const CATEGORY_RULES = {
     ],
 
     Shopping: [
+        "shopping",
         "amazon",
         "flipkart",
         "myntra",

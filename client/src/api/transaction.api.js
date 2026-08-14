@@ -21,3 +21,12 @@ export const updateTransaction = (id, data) => {
 export const deleteTransaction = (id) => {
   return api.delete(`/transactions/${id}`);
 };
+
+export const deleteTransactionsByMonth = (month, year) => {
+  return api.delete("/transactions/month", {
+    params: {
+      month,
+      year,
+    },
+  });
+};

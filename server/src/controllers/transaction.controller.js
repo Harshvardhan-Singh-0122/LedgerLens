@@ -4,6 +4,7 @@ import {
     getTransactionById,
     updateTransaction,
     deleteTransaction,
+    deleteTransactionsByMonth,
 } from "../services/transaction.service.js";
 
 import {
@@ -114,6 +115,54 @@ export const deleteTransactionController = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Transaction deleted successfully.",
+        });
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+//-----------for adding the button for deleting all transactions of month-----------------
+export const deleteTransactionsByMonthController = async (req, res) => {
+    try {
+        const month = Number(req.query.month);
+        const year = Number(req.query.year);
+
+        if (
+            !Number.isInteger(month) ||
+            month < 1 ||
+            month > 12
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid month.",
+            });
+        }
+
+        if (
+            !Number.isInteger(year) ||
+            year < 1900 ||
+            year > 2100
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid year.",
+            });
+        }
+
+        const deletedCount = await deleteTransactionsByMonth(
+            req.user._id,
+            month,
+            year
+        );
+
+        res.status(200).json({
+            success: true,
+            message:
+                deletedCount > 0
+                    ? "Transactions deleted successfully."
+                    : "No transactions were found for this month.",
+            deletedCount,
         });
     } catch (error) {
         throw error;
