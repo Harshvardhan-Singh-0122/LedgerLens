@@ -217,7 +217,20 @@ const CsvPreviewModal = ({
         </div>
 
         {/* Footer */}
-        <div className="p-5 border-t border-[#232B3B] flex justify-end gap-3">
+        <div
+  className="
+    shrink-0
+    p-4
+    sm:p-5
+    border-t
+    border-[#232B3B]
+    flex
+    flex-col
+    sm:flex-row
+    justify-end
+    gap-3
+  "
+>
           <button
             onClick={onClose}
             className="
