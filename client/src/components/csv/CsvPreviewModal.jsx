@@ -79,7 +79,7 @@ const handleImport = async () => {
         </div>
 
         {/* Footer */}
-        <div className="p-5 border-t border-[#232B3B] flex justify-end gap-3">
+        <div className="p-5 pb-10 border-t border-[#232B3B] flex justify-end gap-3">
           <button
             onClick={onClose}
             className="px-5 py-2 rounded-xl border border-[#232B3B] text-white"
@@ -89,7 +89,7 @@ const handleImport = async () => {
 
           <button
             onClick={handleImport}
-            className="px-5 mb-2 py-2 rounded-xl bg-violet-600 text-white"
+            className="px-5 py-2 rounded-xl bg-violet-600 text-white"
           >
             Import {data.summary.newTransactions} Transactions
           </button>
