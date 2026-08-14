@@ -89,7 +89,7 @@ const handleImport = async () => {
 
           <button
             onClick={handleImport}
-            className="px-5 py-2 rounded-xl bg-violet-600 text-white"
+            className="px-5 mb-2 py-2 rounded-xl bg-violet-600 text-white"
           >
             Import {data.summary.newTransactions} Transactions
           </button>
